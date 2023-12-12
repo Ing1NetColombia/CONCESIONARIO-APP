@@ -1,0 +1,68 @@
+<div class="container mt-5">
+    <div class="row">
+      <!-- Division Izquierda -->
+      <div class="col-md-4">
+          <div class="btn-group btn-group-sm my-3 " role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-outline-secondary " id="btn_agregar" aria-pressed="true">Agregar</button>
+              <button type="button" class="btn btn-outline-secondary " id="btn_cancelar" aria-pressed="true" disabled>Cancelar</button>               </div>
+          
+          <form id="frmModelos" class="needs-validation" novalidate>
+              <fieldset id="myFieldSet" disabled>
+                
+                <div class="col-12 mb-3">
+                  <label for="disabledTextInput" class="form-label">Código del modelo</label>
+                  <div class="input-group input-group-sm mb-0">
+                    <input type="text" id="codigo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+                  </div>
+                </div>
+
+                <div class="col-12 mb-3">
+                    <label for="disabledTextInput" class="form-label">Código del Vehiculo</label>
+                    <select id="codigo_vehiculo" class="form-select form-select-sm" aria-label="Small select example">
+                        
+                    </select>
+                </div>
+  
+                <div class="mb-3">
+                  <label for="disabledTextInput" class="form-label">Nombre del modelo</label>
+                  <div class="input-group input-group-sm mb-0">
+                    <input type="text" id="nombre" class="form-control" autofocus required>
+                    <div class="invalid-feedback">Validar nombre del modelo es requerido</div>
+                  </div>
+                </div>
+                                      
+                <div class="mb-3">
+                  <div class="form-check">
+                    <label class="form-check-label" for="disabledFieldsetCheck">Bloqueado</label>
+                    <input class="form-check-input" type="checkbox" id="bloqueado">
+                  </div>
+                </div>
+  
+                <div class="btn-group btn-group-sm my-1" role="group" aria-label="Basic example">
+                  <button id="btn_guardar" type="submit" class="btn btn-secondary">Guardar</button>
+                </div>
+             
+              </fieldset>
+            </form>
+      </div>
+  
+      <!-- Division Derecha -->
+      <div class="col-md-8">
+        <!-- Contiene la tabla principal -->
+        <div class="my-5">
+          <table class="table table-bordered table-sm">
+              <thead class="table-active">
+                <th scope="row">Código</th>
+                <th scope="row">Código Vehiculo</th>
+                <th scope="row">Nombre del Modelo</td>
+                <th scope="row">Estado</td>
+                <th scope="row">Opciones</th>
+              </thead>
+              <tbody id="tbl_modelos"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>   
+  
+  <script src="../Modelos/modelos.js"></script>

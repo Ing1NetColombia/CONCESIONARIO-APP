@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehiculos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+      <div class="container rounded-2 shadow mt-3" style="border: 2px gray;">
+          <div class="row">
+            <!-- Division Izquierda -->
+            <div class="col-md-4">
+                <div class="btn-group btn-group-sm my-3 " role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-secondary " id="btn_agregar" aria-pressed="true">Agregar</button>
+                    <button type="button" class="btn btn-outline-secondary " id="btn_editar" aria-pressed="true">Editar</button>
+                    <button hidden type="button" class="btn btn-outline-secondary " id="btn_eliminar" aria-pressed="true">Eliminar</button>
+                    <!-- <button type="button" class="btn btn-outline-secondary " id="btn_cancelar" aria-pressed="true" disabled>Cancelar</button> -->
+                </div>
+                
+                <form id="frmVehiculos" class="needs-validation" novalidate>
+                    <fieldset id="myFieldSet" disabled>
+                      
+                      <div class="col-12 mb-3">
+                        <label for="disabledTextInput" class="form-label">Código del carro</label>
+                        <div class="input-group input-group-sm mb-0">
+                          <input type="text" id="codigo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+                        </div>
+                        
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="disabledTextInput" class="form-label">Nombre del carro</label>
+                        <div class="input-group input-group-sm mb-0">
+                          <input type="text" id="nombre" class="form-control" autofocus required>
+                          <div class="invalid-feedback">Validar nombre del carro es requerido</div>
+                        </div>
+                        
+                      </div>
+                                            
+                      <div class="mb-3">
+                        <div class="form-check">
+                          <label class="form-check-label" for="disabledFieldsetCheck">Bloqueado</label>
+                          <input class="form-check-input" type="checkbox" id="bloqueado">
+                        </div>
+                      </div>
+
+                      <div class="btn-group btn-group-sm my-1" role="group" aria-label="Basic example">
+                        <button id="btn_guardar" type="submit" class="btn btn-primary">Guardar</button>
+                      </div>
+
+                      <div class="btn-group btn-group-sm my-1" role="group" aria-label="Basic example">
+                        <button id="btn_cancelar" type="submit" class="btn btn-primary">Cancelar</button>
+                      </div>
+                      
+                    </fieldset>
+                  </form>
+            </div>
+
+              <!-- Division Derecha -->
+            <div class="col-md-8">
+
+                <!-- Contiene la tabla principal -->
+                <div class="my-5">
+                  <table class="table table-bordered">
+                    <thead class="table-active">
+                      <th scope="row">Código</th>
+                      <th scope="row">Nombre del Vehiculo</td>
+                      <th scope="row">Estado</td>
+                      <th scope="row">Opciones</th>
+                    </thead>
+                    <tbody id="tbl_vehiculos">
+                      <tr>
+                        <td>1</td>
+                        <td>Carro</td>
+                        <td>Activo</td>
+                        <td>
+                          <button type="button" class="btn btn-outline-secondary btn-sm me-2" onclick="editarVehiculo(1)">Editar</button>
+                          <button type="button" class="btn btn-outline-secondary btn-sm" onclick="eliminarVehiculo(1)">Eliminar</button>
+                        </td>
+                    </tbody>
+                  </table>
+                  
+                </div>
+            </div>
+          </div>
+      </div>    
+      <script>
+
+            // Obtenemos los datos del localStorage de vehiculos
+            var ls_vehiculos = JSON.parse(localStorage.getItem("vehiculos")) || [];
+            var frmVehiculos = document.getElementById("frmVehiculos");
+            
+            // Sección de botones
+            var oBtnAgregar = document.getElementById("btn_agregar");
+            var oBtnEditar = document.getElementById("btn_editar");
+            var oBtnEliminar = document.getElementById("btn_eliminar");
+            var oBtnCancelar = document.getElementById("btn_cancelar");
+            var oBtnGuardar = document.getElementById("btn_guardar");
+
+            // Seccion de campos
+            var oTxtCodigo = document.getElementById("codigo");
+            var oTxtNombre = document.getElementById("nombre");
+            var oChkBloqueado = document.getElementById("bloqueado");
+
+            alert("se ejecuta nuevamente");
+            // Listar vehiculos
+            listarVehiculos_viejo();
+
+            // Boton Agregar
+            oBtnAgregar.addEventListener("click", function(){
+              myBotones("AE"); 
+              myFieldSet(!document.getElementById("myFieldSet").disabled);
+
+              if (ls_vehiculos.length > 0) {
+                oTxtCodigo.value = ls_vehiculos.length + 1;
+              } else {
+                oTxtCodigo.value = 1;
+              }
+            });
+
+            // Boton Editar
+            oBtnEditar.addEventListener("click", function(){
+                myBotones("AE");
+                myFieldSet(!document.getElementById("myFieldSet").disabled);
+            });
+
+            // Boton Eliminar
+            oBtnEliminar.addEventListener("click", function(){
+              alert("Eliminar");
+            }); 
+
+            // Boton Cancelar   
+            oBtnCancelar.addEventListener("click", function(){
+              
+              // Limpar los campos  
+              oTxtCodigo.value = "";
+              oTxtNombre.value = "";
+              oChkBloqueado.checked = false;
+
+              myBotones("GC");
+              myFieldSet(!document.getElementById("myFieldSet").disabled);
+            }); 
+
+            // Boton Guardar 
+            oBtnGuardar.addEventListener("click", function(){
+              
+              myBotones("GC");
+              myFieldSet(!document.getElementById("myFieldSet").disabled);
+
+              var obVehiculo = {
+                codigo: oTxtCodigo.value,
+                nombre: oTxtNombre.value,
+                bloqueado: oChkBloqueado.checked
+              };  
+
+              // Validar que los campos no esten vacios
+              if (obVehiculo.codigo == "" || obVehiculo.nombre == "") {
+                alert("Los campos no pueden estar vacios");
+                return;
+              }
+
+              ls_vehiculos.push(obVehiculo);
+              localStorage.setItem("vehiculos", JSON.stringify(ls_vehiculos));
+
+
+              alert("Vehiculo guardado correctamente");
+
+              frmVehiculos.reset();
+
+            });
+
+            function myFieldSet(boolean){
+              document.getElementById("myFieldSet").disabled = boolean;
+              oTxtCodigo.disabled = true;
+              oTxtNombre.focus();
+            }
+
+            // document.getElementById("frmVehiculos").addEventListener("submit", function(e){
+            //   e.preventDefault();
+            //   alert("Formulario no enviado");
+
+            // });
+
+            function myBotones(tipo){
+            
+              switch (tipo) {
+                case "AE":
+                  oBtnAgregar.disabled = true;
+                  oBtnEditar.disabled = true;
+                  oBtnCancelar.disabled = false;
+                
+                  break;
+                case "GC":
+                  oBtnAgregar.disabled = false;
+                  oBtnEditar.disabled = false;
+                  oBtnCancelar.disabled = true;
+                  break;
+              
+                default:
+                  break;
+              }
+            }
+
+            function listarVehiculos(){
+              // LISTAR CLIENTES
+
+              var oTblVehiculos = document.getElementById("tbl_vehiculos");
+              if (oTblVehiculos == null) return;
+              oTblVehiculos.innerHTML = "";
+
+              alert(ls_vehiculos.length);
+
+              ls_vehiculos.foreach(function(vehiculos){
+                
+                alert(vehiculos.codigo);
+
+                var cadena = `
+                  
+                
+                  <tr>
+                    <td>${vehiculos.codigo}</td>
+                    <td>${vehiculos.nombre}</td>
+                    <td>${vehiculos.bloqueado}</td>
+                    <td>
+                      <button type="button" class="btn btn-outline-secondary btn-sm me-2" onclick="editarVehiculo(${vehiculos.codigo})">Editar</button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm" onclick="eliminarVehiculo(${vehiculos.codigo})">Eliminar</button>
+                    </td>
+                  </tr>
+                `;
+
+                oTblVehiculos.innerHTML += cadena;  
+              });
+              
+
+
+
+
+
+            }
+
+
+            function listarVehiculos_viejo(){
+              var tbody = document.getElementById("tbl_vehiculos");
+              tbody.innerHTML = "";
+
+              for (let i = 0; i < ls_vehiculos.length; i++) {
+                var fila = tbody.insertRow(i);
+                var celdaCodigo = fila.insertCell(0);
+                var celdaNombre = fila.insertCell(1);
+                var celdaBloqueado = fila.insertCell(2);
+                var celdaAcciones = fila.insertCell(3);
+
+                celdaCodigo.innerHTML = ls_vehiculos[i].codigo;
+                celdaNombre.innerHTML = ls_vehiculos[i].nombre;
+
+                if (ls_vehiculos[i].bloqueado) {
+                  celdaBloqueado.innerHTML = "Bloqueado";
+                } else {
+                  celdaBloqueado.innerHTML = "Activo";
+                }
+                
+                var btnEditar = document.createElement("button");
+                btnEditar.type = "button";
+                btnEditar.classList.add("btn", "btn-outline-secondary", "btn-sm", "me-2");
+                btnEditar.innerHTML = "Editar";
+                btnEditar.onclick = function(){
+                  alert("Editar");
+                };
+
+                var btnEliminar = document.createElement("button");
+                btnEliminar.type = "button";
+                btnEliminar.classList.add("btn", "btn-outline-secondary", "btn-sm");
+                btnEliminar.innerHTML = "Eliminar";
+                btnEliminar.onclick = function(){
+                  alert("Eliminar");
+                };
+
+                celdaAcciones.appendChild(btnEditar);
+                celdaAcciones.appendChild(btnEliminar);
+              }
+            }
+            
+
+            
+
+
+
+      </script>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="../Registro/checkout.js"></script>
+</html>

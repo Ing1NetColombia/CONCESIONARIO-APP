@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Concesionario</title>
+
+    <!-- Custom styles for this template -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="../assets/css/carousel.css" rel="stylesheet">
+    <link href="../assets/css/main.css" rel="stylesheet">
+  </head>
+  <body data-bs-theme="light">
+    <!-- HEADER -->
+    <header class="justify-content-center"  >
+       <!-- <nav class="navbar navbar-expand-md fixed-top bg-light"> -->
+        <nav class="navbar fixed-top bg-light">
+          <div class="container d-flex flex-wrap">
+            <div class="px-2">
+              <a class="navbar-brand" href="../index.html">
+                  <img src="../assets/img/auto.png" alt="" width="60" height="56" class="d-inline-block ">
+              </a>
+            </div>  
+            <ul class="nav me-auto">
+              <!-- <div id="sVehiculos"></div> -->
+              <!-- <div id="sModelos"></div> -->
+              <!-- <div id="sVersiones"></div> -->
+              <!-- <div id="sUsuarios"></div> -->
+
+              <!-- Se comenta por que se crea en js dependiendo de la sesión existente -->
+              <li class="nav-item"><a href="#" onclick="cargarContenido('../Vehiculos/index.html')"   class="nav-link link-body-emphasis px-2">Vehiculos</a></li>
+              <li class="nav-item"><a href="#" onclick="cargarContenido('../Modelos/index.html')"  class="nav-link link-body-emphasis px-2">Modelos</a></li>
+              <li class="nav-item"><a href="#" onclick="cargarContenido('../Versiones/index.html')"   class="nav-link link-body-emphasis px-2">Versiones</a></li>
+              <li class="nav-item"><a href="#" onclick="cargarContenido('../Usuarios/index.html')"   class="nav-link link-body-emphasis px-2">Usuarios</a></li>
+            </ul>
+            <ul class="nav">
+              <!-- <li class="nav-item"><a href="/login/index.html" class="nav-link px-2">Iniciar Sesión</a></li> -->
+              <!-- <li class="nav-item"><a href="#" onclick="cargarContenido('Login/index.html')" class="nav-link px-2">Iniciar Sesión</a></li> -->
+              <!-- <li class="nav-item"><a href="/Registro/index.html" class="nav-link px-2 ">Registrarse</a></li> -->
+              <!-- <li class="nav-item" hidden><a id="cerrar" href="#" class="nav-link px-2 ">Cerrar sesión</a></li> -->
+              <div id="usuario_logueado"></div>
+              <div id="sesion"></div>
+              </ul>
+          </div>
+        </nav>
+    </header>
+
+    <!-- PRINCIPAL -->
+    <main>
+      <!-- Pagina de relleno -->
+      <div class="mt-4" id="contenido"></div>
+
+      <!-- Pagina de relleno -->
+      <div class="container mt-5">
+        <div class="row">
+          <!-- Division Izquierda -->
+          <div class="col-md-4">
+              <div class="btn-group btn-group-sm my-3 " role="group" aria-label="Basic example">
+                  <button type="button" class="btn btn-outline-secondary " id="btn_agregar" aria-pressed="true">Agregar</button>
+                  <button type="button" class="btn btn-outline-secondary " id="btn_cancelar" aria-pressed="true" disabled>Cancelar</button>               </div>
+              
+              <form id="frmVehiculos" class="needs-validation" novalidate>
+                  <fieldset id="myFieldSet" disabled>
+                    
+                    <div class="col-12 mb-3">
+                      <label for="disabledTextInput" class="form-label">Código del carro</label>
+                      <div class="input-group input-group-sm mb-0">
+                        <input type="text" id="codigo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+                      </div>
+                      
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="disabledTextInput" class="form-label">Nombre del carro</label>
+                      <div class="input-group input-group-sm mb-0">
+                        <input type="text" id="nombre" class="form-control" autofocus required>
+                        <div class="invalid-feedback">Validar nombre del carro es requerido</div>
+                      </div>
+                    </div>
+                                          
+                    <div class="mb-3">
+                      <div class="form-check">
+                        <label class="form-check-label" for="disabledFieldsetCheck">Bloqueado</label>
+                        <input class="form-check-input" type="checkbox" id="bloqueado">
+                      </div>
+                    </div>
+
+                    <div class="btn-group btn-group-sm my-1" role="group" aria-label="Basic example">
+                      <button id="btn_guardar" type="submit" class="btn btn-secondary">Guardar</button>
+                    </div>
+                 
+                  </fieldset>
+                </form>
+          </div>
+
+          <!-- Division Derecha -->
+          <div class="col-md-8">
+            <!-- Contiene la tabla principal -->
+            <div class="my-5">
+              <table class="table table-bordered">
+                  <thead class="table-active">
+                    <th scope="row">Código</th>
+                    <th scope="row">Nombre del Vehiculo</td>
+                    <th scope="row">Estado</td>
+                    <th scope="row">Opciones</th>
+                  </thead>
+                  <tbody id="tbl_vehiculos">
+                      <td>1</td>
+                      <td>Carro</td>
+                      <td>Activo</td>
+                      <td>
+                        <button type="button" class="btn btn-outline-secondary btn-sm me-2" onclick="editarVehiculo(1)">Editar</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="eliminarVehiculo(1)">Eliminar</button>
+                      </td>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>   
+    </main>
+    
+    FOOTER
+    <div class="container" >
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <p class="col-md-4 mb-0 text-body-secondary">&copy; Capacitación HTML-CSS-JS 2023</p>
+    
+        <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+          <img src="../assets/img/auto.png" alt="" width="60" height="56" class="d-inline-block ">
+          
+        </a>
+
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Contacto</a></li>
+          <li class="nav-item float-end"><a href="#" class="nav-link px-2 text-body-secondary">
+            <img src="../assets/img/back top.png" alt="" width="30" height="30" class="d-inline-block ">
+          </a></li>
+        </ul>
+      </footer>
+    </div>
+
+    
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/vehiculos.js"></script>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+    <head><script src="../assets/js/color-modes.js"></script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Registro Usuario</title>
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/checkout/">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+      
+        </style>
+
+        <!-- Custom styles for this template -->
+        <link href="checkout.css" rel="stylesheet">
+    </head>
+    <body >
+        <div class="container col-md-6"  >
+            <main>
+                
+                <div class="modal position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content rounded-4 shadow col-lg-10 ">
+                            <div class="modal-header p-5 pb-4 border-bottom-0 mt-0">
+                                <h1 class="fw-bold mb-0 fs-2">Registrar Usuario</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="redireccionar('../index.html')"></button>
+                            </div>
+
+                            <div class="modal-body p-5 pt-0">
+                                <form id="frmRegistro" class="needs-validation" novalidate>
+                                    <div class="g-3" >
+                                        <div class="col-12 mb-2">
+                                            <label for="Nombre" class="form-label">Nombre completo</label>
+                                            <input type="text" class="form-control" id="nombre" placeholder="" value="" autofocus required>
+                                            <div class="invalid-feedback">Validar nombre completo es requerido</div>
+                                        </div>
+            
+                                        <div class="col-12 mb-2">
+                                            <label for="Nombre" class="form-label">Nombre de usuario</label>
+                                            <input type="text" class="form-control" id="usuario" placeholder="" value="" required>
+                                            <div class="invalid-feedback">Validar nombre de usuario es requerido</div>
+                                        </div>
+            
+                                        <div class="col-12 mb-2">
+                                            <label for="email" class="form-label">Correo electrónico</label>
+                                            <input type="email" class="form-control" id="usuario_correo" placeholder="ejemplo@ejemplo.com" required>
+                                            <div class="invalid-feedback">Por favor validar Correo electrónico es requerido</div>
+                                        </div>
+            
+                                        <div class="col-12 mb-2">
+                                            <label for="userPassword" class="form-label">Contraseña</label>
+                                            <input type="password" class="form-control" id="usuario_clave" required>
+                                            <div class="invalid-feedback">Por favor validar Contraseña es requerido</div>
+                                        </div>
+                                    </div>            
+                                    
+                                    <button class="w-100 btn btn-primary btn-lg mt-3" type="submit">Registrar usuario</button>
+            
+                                    <p class="pt-2">Tienes cuenta? <a href="../login/index.html">Login</a></p>
+                                    <p id="error-message" class="text-danger"></p>
+            
+                                    <hr class="my-4"> <!-- Linea con estilo de boostrap -->
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>  
+                </div>  
+
+                
+            </main>
+        </div>
+       
+    </body>
+
+    <script src="checkout.js"></script>
+    <script src="registro.js"></script>
+    <script src="../assets/js/main.js"></script>
+</html>

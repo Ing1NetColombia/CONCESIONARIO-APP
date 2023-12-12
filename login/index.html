@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+    <head>
+        
+        <script src="../assets/js/color-modes.js"></script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        
+        <title>Iniciar Sesión</title>
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/modals/">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    
+        <!-- Custom styles for this template -->
+        <link href="../assets/css/modals.css" rel="stylesheet">
+        
+    </head>
+  
+    <body>
+        <div class="modal position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h1 class="fw-bold mb-0 fs-2">Iniciar sesión</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="redireccionar('../index.html')"></button>
+                    </div>
+
+                    <div class="modal-body p-5 pt-0">
+                        <form id="frmLogin">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control rounded-3" id="usuario_correo" placeholder="name@example.com" autofocus>
+                                <label for="floatingInput">Correo Electrónico</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control rounded-3" id="usuario_clave" placeholder="Password">
+                                <label for="floatingPassword">Contraseña</label>
+                            </div>
+                            
+                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Iniciar Sesión</button>
+                            
+                            <p>No tienes una cuenta? <a href="../Registro/index.html">Registrarse</a></p>
+                            <p id="error-message" class="text-danger"></p>
+
+                            <hr class="my-4">  <!-- Linea -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../assets/js/bootstrap.bundle.min.js"></script>
+        <script src="login.js"></script>
+        <script src="../assets/js/main.js"></script>
+
+    </body>
+</html>
