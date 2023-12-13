@@ -60,6 +60,8 @@ function listarModelos(){
         return obModelo.bloqueado != true;
     });
 
+    oCmbModelos.innerHTML = `<option value="">Seleccione un modelo  </option>`;
+
     ls_modelos.forEach(function(obModelo)
     {
         var cadena = 

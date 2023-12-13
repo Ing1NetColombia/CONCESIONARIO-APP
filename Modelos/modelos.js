@@ -30,7 +30,7 @@ function listarModelos(){
     var cadena = `
       <tr>
         <td>${obModelo.codigo}</td>
-        <td>${obModelo.codigo_vehiculo}</td>
+        <td>${buscarVehiculo(obModelo.codigo_vehiculo)}</td>
         <td>${obModelo.nombre}</td>
         <td>${obModelo.bloqueado ? "Bloqueado" : "Activo"}</td>
         <td>
@@ -41,6 +41,25 @@ function listarModelos(){
     `;
     oTblModelos.innerHTML += cadena;  
   });
+}
+
+function buscarVehiculo(codigo){
+
+    var retorno = "";
+
+    if (codigo == null || codigo == ""){
+
+    }else{
+      var ls_vehiculos = JSON.parse(localStorage.getItem("vehiculos")) || [];
+
+      var obVehiculo = ls_vehiculos.find(function(obVehiculo){
+        return obVehiculo.codigo == codigo;
+      });
+
+      retorno = obVehiculo.nombre;
+    }
+
+    return retorno;
 }
 
 function listarVehiculos(){
@@ -55,6 +74,8 @@ function listarVehiculos(){
     ls_vehiculos = ls_vehiculos.filter(function(obVehiculo){
         return obVehiculo.bloqueado != true;
     });
+
+    oCmbVehiculos.innerHTML = `<option value="">Seleccione un vehiculo</option>`;
 
     ls_vehiculos.forEach(function(obVehiculo)
     {
