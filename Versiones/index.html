@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div class="row">
       <!-- Division Izquierda -->
-      <div class="col-md-4">
+      <div class="col-md-3">
           <div class="btn-group btn-group-sm my-3 " role="group" aria-label="Basic example">
               <button type="button" class="btn btn-outline-secondary " id="btn_agregar" aria-pressed="true">Agregar</button>
               <button type="button" class="btn btn-outline-secondary " id="btn_cancelar" aria-pressed="true" disabled>Cancelar</button>               </div>
@@ -35,6 +35,14 @@
                     <div class="invalid-feedback">Validar nombre de la versión es requerido</div>
                   </div>
                 </div>
+
+                <div class="mb-3">
+                  <label for="disabledTextInput" class="form-label">Precio del Vehiculo</label>
+                  <div class="input-group input-group-sm mb-0">
+                    <input type="number" id="precio" class="form-control" required>
+                    <div class="invalid-feedback">Validar precio del modelo</div>
+                  </div>
+                </div>
                                       
                 <div class="mb-3">
                   <div class="form-check">
@@ -46,13 +54,15 @@
                 <div class="btn-group btn-group-sm my-1" role="group" aria-label="Basic example">
                   <button id="btn_guardar" type="submit" class="btn btn-secondary">Guardar</button>
                 </div>
+
+                
              
               </fieldset>
             </form>
       </div>
   
       <!-- Division Derecha -->
-      <div class="col-md-8">
+      <div class="col-md-9">
         <!-- Contiene la tabla principal -->
         <div class="my-5">
           <table class="table table-bordered table-sm">
@@ -60,8 +70,9 @@
                 <th scope="row">Código</th>
                 <th scope="row">Código Vehiculo</th>
                 <th scope="row">Código Modelo</th>
-                <th scope="row">Nombre de la versión</td>
-                <th scope="row">Estado</td>
+                <th scope="row">Nombre de la versión</th>
+                <th scope="row">Precio</th>
+                <th scope="row">Estado</th>
                 <th scope="row">Opciones</th>
               </thead>
               <tbody id="tbl_versiones"></tbody>

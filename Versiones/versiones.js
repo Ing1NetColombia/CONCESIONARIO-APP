@@ -17,6 +17,7 @@ var oTxtCodigo = document.getElementById("codigo");
 var oCmbCodigoVehiculo = document.getElementById("codigo_vehiculo");
 var oCmbCodigoModelo = document.getElementById("codigo_modelo");
 var oTxtNombre = document.getElementById("nombre");
+var oTxtPrecio = document.getElementById("precio");
 var oChkBloqueado = document.getElementById("bloqueado");
 
 function listarVersiones(){
@@ -32,11 +33,13 @@ function listarVersiones(){
       <tr>
         <td>${obVersion.codigo}</td>
         <td>${obVersion.codigo_vehiculo}</td>
+        <td>${obVersion.codigo_modelo}</td>
         <td>${obVersion.nombre}</td>
+        <td>${obVersion.precio}</td>
         <td>${obVersion.bloqueado ? "Bloqueado" : "Activo"}</td>
         <td>
-          <button type="button" class="btn btn-outline-secondary btn-sm me-2" onclick="editarModelo(${obVersion.codigo})">Editar</button>
-          <button type="button" class="btn btn-outline-secondary btn-sm" onclick="eliminarModelo(${obVersion.codigo})">Eliminar</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm me-2" onclick="editarVersion(${obVersion.codigo})">Editar</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" onclick="eliminarVersion(${obVersion.codigo})">Eliminar</button>
         </td>
       </tr>
     `;
@@ -68,45 +71,47 @@ function listarModelos(){
     });   
 }
 
-function editarModelo(codigo){
-  var ls_modelos = JSON.parse(localStorage.getItem("modelos")) || [];
+function editarVersion(codigo){
+  var ls_versiones = JSON.parse(localStorage.getItem("versiones")) || [];
 
-  var obModelo = ls_modelos.find(function(obModelo){
-    return obModelo.codigo == codigo;
+  var obVersion = ls_versiones.find(function(obVersion){
+    return obVersion.codigo == codigo;
   });
 
-  document.getElementById("codigo").value = obModelo.codigo;
-  document.getElementById("codigo_vehiculo").value = obModelo.codigo;
-  document.getElementById("nombre").value = obModelo.nombre;
-  document.getElementById("bloqueado").checked = obModelo.bloqueado;
+  document.getElementById("codigo").value = obVersion.codigo;
+  document.getElementById("codigo_modelo").value = obVersion.codigo_modelo;
+  document.getElementById("codigo_vehiculo").value = obVersion.codigo_vehiculo;
+  document.getElementById("nombre").value = obVersion.nombre;
+  document.getElementById("precio").value = obVersion.precio;
+  document.getElementById("bloqueado").checked = obVersion.bloqueado;
 
-  eliminarModelo(codigo);
+  eliminarVersion(codigo);
 
   myBotones("AE");
   myFieldSet(!document.getElementById("myFieldSet").disabled);
 }
 
-function eliminarModelo(codigo){
-    var ls_modelos = JSON.parse(localStorage.getItem("modelos")) || [];
+function eliminarVersion(codigo){
+    var ls_versiones = JSON.parse(localStorage.getItem("versiones")) || [];
 
-  var ls_modelos = ls_modelos.filter(function(obModelo){
-    return obModelo.codigo != codigo;
+  var ls_versiones = ls_versiones.filter(function(obVersion){
+    return obVersion.codigo != codigo;
   });
 
   // Se carga menos el codigo filtrado es decir se elimina
-  localStorage.setItem("modelos", JSON.stringify(ls_modelos));
-  listarModelos();
+  localStorage.setItem("versiones", JSON.stringify(ls_versiones));
+  listarVersiones();
 }
 
 // Boton Agregar
 oBtnAgregar.addEventListener("click", function(){
-    var ls_modelos = JSON.parse(localStorage.getItem("modelos")) || [];
+    var ls_versiones = JSON.parse(localStorage.getItem("versiones")) || [];
 
   myBotones("AE");
   myFieldSet(!document.getElementById("myFieldSet").disabled);
 
-  if (ls_modelos.length > 0) {
-    oTxtCodigo.value = ls_modelos.length + 1;
+  if (ls_versiones.length > 0) {
+    oTxtCodigo.value = ls_versiones.length + 1;
   } else {
     oTxtCodigo.value = 1;
   }
@@ -128,36 +133,40 @@ oBtnCancelar.addEventListener("click", function(){
 // Boton Guardar 
 oBtnGuardar.addEventListener("click", function(){
               
+  alert("Se guardo correctamente");
   var ls_versiones = JSON.parse(localStorage.getItem("versiones")) || []; 
 
   myBotones("GC");
   myFieldSet(!document.getElementById("myFieldSet").disabled);
 
-  
+  alert(oTxtPrecio.value);
+
   var obVersion = {
     codigo: oTxtCodigo.value,
     codigo_vehiculo: oCmbCodigoVehiculo.value,
     codigo_modelo: oCmbCodigoModelo.value,
     nombre: oTxtNombre.value,
+    precio: oTxtPrecio.value,
     bloqueado: oChkBloqueado.checked
   };  
 
   // Validar que los campos no esten vacios
-  if (obVersion.codigo == "" || obVersion.nombre == "") {
+  if (obVersion.codigo == "" || obVersion.nombre == "" || obVersion.precio == "") {
     alert("Los campos no pueden estar vacios");
     return;
   }
 
-  ls_modelos.push(obModelo);
-  localStorage.setItem("modelos", JSON.stringify(ls_modelos));
+  ls_versiones.push(obVersion);
+  localStorage.setItem("versiones", JSON.stringify(ls_versiones));
   frmVersiones.reset();
-  listarModelos();
+  listarVersiones();
 });
 
 function myFieldSet(boolean){
   document.getElementById("myFieldSet").disabled = boolean;
   oTxtCodigo.disabled = true;
-  oTxtNombre.focus();
+  oCmbCodigoVehiculo.disabled = true;
+  oCmbCodigoModelo.focus();
 }
 
 function myBotones(tipo){
@@ -178,28 +187,28 @@ function myBotones(tipo){
   }
 }
 
+// Change del combo de modelos
 oCmbCodigoModelo.addEventListener("change", function(){
     
-    var codigo_vehiculo = oCmbCodigoModelo.value;
-     //Se crea para cargar el combo de vehiculos.
-     var ls_vehiculos = JSON.parse(localStorage.getItem("vehiculos")) || [];
-     var oCmbVehiculos = document.getElementById("codigo_vehiculo");
- 
-     if (oCmbVehiculos == null) return;
- 
-     oCmbVehiculos.innerHTML = "";
- 
-     ls_vehiculos = ls_vehiculos.filter(function(obVehiculo){
-         return obVehiculo.bloqueado != true;
-     });
- 
-     ls_vehiculos.forEach(function(obVehiculo)
-     {
-         var cadena = 
-         `
-             <option value="${obVehiculo.codigo}">${obVehiculo.nombre}</option>
-         `;
-         
-         oCmbVehiculos.innerHTML += cadena;
-     }); 
+    //Se crea para cargar el combo de vehiculos.
+    var oCmbModelos = document.getElementById("codigo_modelo");
+    var ls_modelos = JSON.parse(localStorage.getItem("modelos")) || [];
+
+    var obModelo = ls_modelos.find(function(obModelo){
+        return obModelo.codigo == oCmbModelos.value;
+    });
+
+    var ls_vehiculos = JSON.parse(localStorage.getItem("vehiculos")) || [];
+    var oCmbVehiculos = document.getElementById("codigo_vehiculo");
+
+    if (oCmbVehiculos == null) return;
+
+    oCmbVehiculos.innerHTML = "";
+
+    var obVehiculo = ls_vehiculos.find(function(obVehiculo){
+        return obVehiculo.codigo == obModelo.codigo_vehiculo;
+    });
+
+    oCmbVehiculos.innerHTML = `<option value="${obVehiculo.codigo}">${obVehiculo.nombre}</option> `;
+  
 });
