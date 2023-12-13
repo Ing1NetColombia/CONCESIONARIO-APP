@@ -32,8 +32,8 @@ function listarVersiones(){
     var cadena = `
       <tr>
         <td>${obVersion.codigo}</td>
-        <td>${obVersion.codigo_vehiculo}</td>
-        <td>${obVersion.codigo_modelo}</td>
+        <td>${buscar(obVersion.codigo_vehiculo, "vehiculos")}</td>
+        <td>${buscar(obVersion.codigo_modelo, "modelos")}</td>
         <td>${obVersion.nombre}</td>
         <td>${obVersion.precio}</td>
         <td>${obVersion.bloqueado ? "Bloqueado" : "Activo"}</td>
@@ -135,13 +135,10 @@ oBtnCancelar.addEventListener("click", function(){
 // Boton Guardar 
 oBtnGuardar.addEventListener("click", function(){
               
-  alert("Se guardo correctamente");
   var ls_versiones = JSON.parse(localStorage.getItem("versiones")) || []; 
 
   myBotones("GC");
   myFieldSet(!document.getElementById("myFieldSet").disabled);
-
-  alert(oTxtPrecio.value);
 
   var obVersion = {
     codigo: oTxtCodigo.value,

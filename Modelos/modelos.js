@@ -30,7 +30,7 @@ function listarModelos(){
     var cadena = `
       <tr>
         <td>${obModelo.codigo}</td>
-        <td>${buscarVehiculo(obModelo.codigo_vehiculo)}</td>
+        <td>${buscar(obModelo.codigo_vehiculo, "vehiculos")}</td>
         <td>${obModelo.nombre}</td>
         <td>${obModelo.bloqueado ? "Bloqueado" : "Activo"}</td>
         <td>
@@ -43,24 +43,7 @@ function listarModelos(){
   });
 }
 
-function buscarVehiculo(codigo){
 
-    var retorno = "";
-
-    if (codigo == null || codigo == ""){
-
-    }else{
-      var ls_vehiculos = JSON.parse(localStorage.getItem("vehiculos")) || [];
-
-      var obVehiculo = ls_vehiculos.find(function(obVehiculo){
-        return obVehiculo.codigo == codigo;
-      });
-
-      retorno = obVehiculo.nombre;
-    }
-
-    return retorno;
-}
 
 function listarVehiculos(){
     //Se crea para cargar el combo de vehiculos.
