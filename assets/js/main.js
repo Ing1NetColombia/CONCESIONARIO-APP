@@ -11,6 +11,8 @@ if (!user_success) {
 } else {
     cargarNavbarLi();
     cargarContenido('../Principal/bienvenido.html');
+
+    
 }
 
 // Aqui ya se cargo los contenidos

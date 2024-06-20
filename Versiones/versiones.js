@@ -82,6 +82,7 @@ function editarVersion(codigo){
 
   document.getElementById("codigo").value = obVersion.codigo;
   document.getElementById("codigo_modelo").value = obVersion.codigo_modelo;
+  document.getElementById("codigo_modelo").dispatchEvent(new Event("change"));
   document.getElementById("codigo_vehiculo").value = obVersion.codigo_vehiculo;
   document.getElementById("nombre").value = obVersion.nombre;
   document.getElementById("precio").value = obVersion.precio;
